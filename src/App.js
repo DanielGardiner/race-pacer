@@ -1,46 +1,17 @@
 import { useState } from "react";
 import "./styles/bootstrap-custom-colors.scss";
-import "react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css";
 import Form from "react-bootstrap/Form";
 import RangeSlider from "react-bootstrap-range-slider";
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import LayoutMain from "./components/layouts/LayoutMain";
 import { units, multipliers, distances } from "./utils/statics";
-import {
-  calculateRaceTime,
-  convertSecondsToHMS,
-  getPaceDisplayString,
-  getRaceTimeDisplayString,
-} from "./functions";
+import { getPaceDisplayString, getRaceTimeDisplayString } from "./functions";
 
 function App() {
   const [paceSeconds, setPaceSeconds] = useState(600);
   const [paceUnit, setPaceUnit] = useState(units.MILES);
-
-  // const distance = {
-  //   value: 3.1,
-  //   unit: units.MILES,
-  // };
-
-  // const pace = {
-  //   seconds: 600,
-  //   unit: units.MILES,
-  // };
-
-  const distance = {
-    value: 5,
-    unit: units.KM,
-  };
-
-  const pace = {
-    seconds: paceSeconds,
-    unit: units.MILES,
-  };
-
-  const { mins, seconds } = calculateRaceTime({ distance, pace });
 
   return (
     <LayoutMain>
@@ -92,8 +63,12 @@ function App() {
 
             return (
               <Row className="text-white mt-1 mb-1">
-                <Col className="p-0" xs={6} md={3}>{title}</Col>
-                <Col className="p-0" xs={6} md={4}>{raceTimeDisplayString}</Col>
+                <Col className="p-0" xs={6} md={3}>
+                  {title}
+                </Col>
+                <Col className="p-0" xs={6} md={4}>
+                  {raceTimeDisplayString}
+                </Col>
               </Row>
             );
           }

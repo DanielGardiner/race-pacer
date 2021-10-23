@@ -10,4 +10,5 @@ $dark: #4B5557;
 // $warning: ;
 // $info: ;
 
-@import '/node_modules/bootstrap/scss/bootstrap.scss'
+@import '/node_modules/bootstrap/scss/bootstrap.scss';
+@import "react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css";
