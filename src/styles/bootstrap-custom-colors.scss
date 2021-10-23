@@ -1,6 +1,13 @@
 // overwrite theme variables
+$primary: #F3A668;
+$secondary: #62B3AE;
+$light: #DFE9E6;
+$dark: #4B5557;
 
-$primary: teal;
-$secondary: purple;
+// #797071
+// $success: ;
+// $danger: ;
+// $warning: ;
+// $info: ;
 
 @import '/node_modules/bootstrap/scss/bootstrap.scss'

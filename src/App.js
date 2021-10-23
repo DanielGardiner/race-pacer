@@ -1,29 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
-import './styles/bootstrap-custom-colors.scss';
-import Button from 'react-bootstrap/Button'
+import "./styles/bootstrap-custom-colors.scss";
+import Button from "react-bootstrap/Button";
+import LayoutMain from "./components/layouts/LayoutMain";
+import { units } from "./utils/statics";
+import { calculateRaceTime } from "./functions";
 
 function App() {
+  const distance = {
+    value: 10,
+    unit: units.KM,
+  };
+
+  const pace = {
+    seconds: 531,
+    unit: units.MILES,
+  };
+
+  const raceTime = calculateRaceTime({ distance, pace });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-
-        <Button variant="primary" className="mt-3">My button</Button>
-      </header>
-    </div>
+    <LayoutMain>
+      <h1 className="text-white pt-5 text-center">Race Pacer!</h1>
+    </LayoutMain>
   );
 }
 
