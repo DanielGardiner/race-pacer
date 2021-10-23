@@ -1,9 +1,11 @@
 import calculateRaceTime from "./calculateRaceTime";
 import convertSecondsToHMS from "./convertSecondsToHMS";
-import convertSecondsToDisplayString from "./convertSecondsToDisplayString";
+import getPaceDisplayString from "./getPaceDisplayString";
+import getRaceTimeDisplayString from "./getRaceTimeDisplayString";
 
 export {
   calculateRaceTime,
   convertSecondsToHMS,
-  convertSecondsToDisplayString,
+  getPaceDisplayString,
+  getRaceTimeDisplayString,
 };

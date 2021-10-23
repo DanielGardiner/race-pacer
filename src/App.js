@@ -12,7 +12,8 @@ import { units, multipliers, distances } from "./utils/statics";
 import {
   calculateRaceTime,
   convertSecondsToHMS,
-  convertSecondsToDisplayString,
+  getPaceDisplayString,
+  getRaceTimeDisplayString,
 } from "./functions";
 
 function App() {
@@ -62,20 +63,8 @@ function App() {
                 : 900 * multipliers.KM_TO_MILES_MULTIPLIER
             }
             tooltipLabel={() => {
-              const paceDisplayString = convertSecondsToDisplayString(
-                paceSeconds
-              );
+              const paceDisplayString = getPaceDisplayString(paceSeconds);
               return paceDisplayString;
-
-              // if (!!paceMins && !!remainingPaceSeconds) {
-              //   return `${paceMins}m ${remainingPaceSeconds}s per ${paceUnit}`;
-              // }
-              // if (!!paceMins) {
-              //   return `${paceMins}m per ${paceUnit}`;
-              // }
-              // if (!!remainingPaceSeconds) {
-              //   return `${remainingPaceSeconds}s per ${paceUnit}`;
-              // }
             }}
             tooltip="on"
             value={paceSeconds}
@@ -89,7 +78,7 @@ function App() {
       <Container>
         {distances.map(
           ({ title, value: distanceValue, unit: distanceUnit }) => {
-            const { hours, mins, seconds } = calculateRaceTime({
+            const raceTimeDisplayString = getRaceTimeDisplayString({
               distance: {
                 value: distanceValue,
                 unit: distanceUnit,
@@ -98,14 +87,13 @@ function App() {
                 seconds: paceSeconds,
                 unit: paceUnit,
               },
+              hasLeadingZero: true,
             });
 
             return (
               <Row className="text-white mt-1 mb-1">
-                <Col className="p-0">{title}</Col>
-                <Col>
-                  {hours}h {mins}m {seconds}s
-                </Col>
+                <Col className="p-0" xs={6} md={3}>{title}</Col>
+                <Col className="p-0" xs={6} md={4}>{raceTimeDisplayString}</Col>
               </Row>
             );
           }

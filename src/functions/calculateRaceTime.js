@@ -10,7 +10,6 @@ import convertSecondsToHMS from "./convertSecondsToHMS";
  * @return {Object} race time in the following format:
  * { min: 59, seconds: 59 }
  */
-
 function calculateRaceTime({ distance, pace }) {
   const { value: distanceValue, unit: distanceUnit } = distance;
   const { seconds: paceSeconds, unit: paceUnit } = pace;
