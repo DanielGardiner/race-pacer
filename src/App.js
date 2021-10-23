@@ -11,7 +11,7 @@ import { getPaceDisplayString, getRaceTimeDisplayString } from "./functions";
 
 function App() {
   const [paceSeconds, setPaceSeconds] = useState(600);
-  const [paceUnit, setPaceUnit] = useState(units.MILES);
+  const [paceUnit, setPaceUnit] = useState(units.KM);
 
   return (
     <LayoutMain>
@@ -48,7 +48,7 @@ function App() {
         </Form.Group>
       </Form>
       <h3 className="text-white mt-5">Race Time:</h3>
-      <Container>
+      <Container className="m-0">
         {distances.map(
           ({ title, value: distanceValue, unit: distanceUnit }) => {
             const raceTimeDisplayString = getRaceTimeDisplayString({
@@ -64,7 +64,7 @@ function App() {
             });
 
             return (
-              <Row className="text-white mt-1 mb-1" key={title}>
+              <Row className="text-white mt-2" key={title}>
                 <Col className="p-0" xs={6} md={3}>
                   {title}
                 </Col>
