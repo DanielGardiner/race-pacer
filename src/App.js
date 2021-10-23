@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
+import './styles/bootstrap-custom-colors.scss';
+import Button from 'react-bootstrap/Button'
 
 function App() {
   return (
@@ -9,6 +11,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -17,6 +20,8 @@ function App() {
         >
           Learn React
         </a>
+
+        <Button variant="primary" className="mt-3">My button</Button>
       </header>
     </div>
   );
