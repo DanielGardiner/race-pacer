@@ -1,12 +1,12 @@
 import { units, multipliers } from "../utils/statics";
-import convertSecondsToMinSecs from "./convertSecondsToMinSecs";
+import convertSecondsToHMS from "./convertSecondsToHMS";
 
 /**
  * Calculate race time given race distance and race pace
  * @param  {Object} distance in the following format:
  * { value: 10, unit: 'km' }
  * @param  {Object} pace in the following format:
- * { second: 531, unit: 'miles' }
+ * { seconds: 531, unit: 'miles' }
  * @return {Object} race time in the following format:
  * { min: 59, seconds: 59 }
  */
@@ -27,7 +27,7 @@ function calculateRaceTime({ distance, pace }) {
 
   const raceTimeSeconds = secondsToRunOneMile * distanceInMiles;
 
-  const raceTime = convertSecondsToMinSecs(raceTimeSeconds);
+  const raceTime = convertSecondsToHMS(raceTimeSeconds);
   return raceTime;
 }
 

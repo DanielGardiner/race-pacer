@@ -1,4 +1,9 @@
 import calculateRaceTime from "./calculateRaceTime";
-import convertSecondsToMinSecs from "./convertSecondsToMinSecs";
+import convertSecondsToHMS from "./convertSecondsToHMS";
+import convertSecondsToDisplayString from "./convertSecondsToDisplayString";
 
-export { calculateRaceTime, convertSecondsToMinSecs };
+export {
+  calculateRaceTime,
+  convertSecondsToHMS,
+  convertSecondsToDisplayString,
+};
