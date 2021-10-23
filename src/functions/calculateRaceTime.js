@@ -1,28 +1,29 @@
-import { units } from "../utils/statics";
+import { units, multipliers } from "../utils/statics";
 import convertSecondsToMinSecs from "./convertSecondsToMinSecs";
 
 /**
- * Add two numbers together
- * @param  {Object} distance The first number
- * @param  {Object} pace
- * @return {Object}      The total of the two numbers
+ * Calculate race time given race distance and race pace
+ * @param  {Object} distance in the following format:
+ * { value: 10, unit: 'km' }
+ * @param  {Object} pace in the following format:
+ * { second: 531, unit: 'miles' }
+ * @return {Object} race time in the following format:
+ * { min: 59, seconds: 59 }
  */
 
 function calculateRaceTime({ distance, pace }) {
-  const KM_TO_MILES_MULTIPLIER = 0.621371;
-
   const { value: distanceValue, unit: distanceUnit } = distance;
   const { seconds: paceSeconds, unit: paceUnit } = pace;
 
   const distanceInMiles =
     distanceUnit === units.MILES
       ? distanceValue
-      : distanceValue * KM_TO_MILES_MULTIPLIER;
+      : distanceValue * multipliers.KM_TO_MILES_MULTIPLIER;
 
   const secondsToRunOneMile =
     paceUnit === units.MILES
       ? paceSeconds
-      : paceSeconds * KM_TO_MILES_MULTIPLIER;
+      : paceSeconds * multipliers.KM_TO_MILES_MULTIPLIER;
 
   const raceTimeSeconds = secondsToRunOneMile * distanceInMiles;
 
