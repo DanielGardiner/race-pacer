@@ -5,6 +5,7 @@ import RangeSlider from "react-bootstrap-range-slider";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 import LayoutMain from "./components/layouts/LayoutMain";
 import { units, multipliers, distances } from "./utils/statics";
 import { getPaceDisplayString, getRaceTimeDisplayString } from "./functions";
@@ -47,35 +48,40 @@ function App() {
           />
         </Form.Group>
       </Form>
-      <h3 className="text-white mt-5">Race Time:</h3>
-      <Container className="m-0">
-        {distances.map(
-          ({ title, value: distanceValue, unit: distanceUnit }) => {
-            const raceTimeDisplayString = getRaceTimeDisplayString({
-              distance: {
-                value: distanceValue,
-                unit: distanceUnit,
-              },
-              pace: {
-                seconds: paceSeconds,
-                unit: paceUnit,
-              },
-              hasLeadingZero: true,
-            });
 
-            return (
-              <Row className="text-white mt-2" key={title}>
-                <Col className="p-0" xs={6} md={3}>
-                  {title}
-                </Col>
-                <Col className="p-0" xs={6} md={4}>
-                  {raceTimeDisplayString}
-                </Col>
-              </Row>
-            );
-          }
-        )}
-      </Container>
+      <Card className="mt-5">
+        <Card.Header style={{ fontSize: "1.3rem", fontWeight: 400 }}>
+          Race Time:
+        </Card.Header>
+        <Card.Body className="pt-1">
+          {distances.map(
+            ({ title, value: distanceValue, unit: distanceUnit }) => {
+              const raceTimeDisplayString = getRaceTimeDisplayString({
+                distance: {
+                  value: distanceValue,
+                  unit: distanceUnit,
+                },
+                pace: {
+                  seconds: paceSeconds,
+                  unit: paceUnit,
+                },
+                hasLeadingZero: true,
+              });
+
+              return (
+                <Row className="text-black mt-2" key={title}>
+                  <Col className="pl-3" xs={6} md={3}>
+                    {title}
+                  </Col>
+                  <Col className="p-0" xs={6} md={4}>
+                    {raceTimeDisplayString}
+                  </Col>
+                </Row>
+              );
+            }
+          )}
+        </Card.Body>
+      </Card>
     </LayoutMain>
   );
 }
