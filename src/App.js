@@ -47,6 +47,7 @@ function App() {
                     value={value}
                     checked={value === paceUnit}
                     onClick={(e) => setPaceUnit(value)}
+                    style={{ minWidth: 70 }}
                   >
                     {title}
                   </ToggleButton>
