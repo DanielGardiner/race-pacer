@@ -15,6 +15,11 @@ function App() {
   const [paceSeconds, setPaceSeconds] = useState(600);
   const [paceUnit, setPaceUnit] = useState(units.KM);
 
+  const minSliderValue =
+    paceUnit === units.MILES ? 210 : 210 * multipliers.KM_TO_MILES_MULTIPLIER;
+  const maxSliderValue =
+    paceUnit === units.MILES ? 900 : 900 * multipliers.KM_TO_MILES_MULTIPLIER;
+
   return (
     <LayoutMain>
       <h1 className="text-white text-center" style={{ paddingTop: "6.5rem" }}>
@@ -26,22 +31,26 @@ function App() {
           {/* <Form.Label className="text-white">Unit</Form.Label> */}
 
           <Form.Label className="text-white mt-5">Pace</Form.Label>
-          <Row>
-            <Col xs={1}>
-              <Button>&larr;</Button>
-            </Col>
-            <Col>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div>
+              <Button
+                className="m-0"
+                onClick={() => {
+                  const newPaceSeconds = paceSeconds - 5;
+                  setPaceSeconds(
+                    newPaceSeconds < minSliderValue
+                      ? minSliderValue
+                      : newPaceSeconds
+                  );
+                }}
+              >
+                &larr;
+              </Button>
+            </div>
+            <div style={{ width: "80%" }}>
               <RangeSlider
-                min={
-                  paceUnit === units.MILES
-                    ? 210
-                    : 210 * multipliers.KM_TO_MILES_MULTIPLIER
-                }
-                max={
-                  paceUnit === units.MILES
-                    ? 900
-                    : 900 * multipliers.KM_TO_MILES_MULTIPLIER
-                }
+                min={minSliderValue}
+                max={maxSliderValue}
                 tooltipLabel={() => {
                   const paceDisplayString = getPaceDisplayString(paceSeconds);
                   return paceDisplayString;
@@ -49,14 +58,27 @@ function App() {
                 tooltip="on"
                 value={paceSeconds}
                 onChange={(e) => {
-                  setPaceSeconds(e.target.value);
+                  const newPaceSeconds = parseInt(e.target.value, 10);
+                  setPaceSeconds(newPaceSeconds);
                 }}
               />
-            </Col>
-            <Col xs={1}>
-            <Button>&rarr;</Button>
-            </Col>
-          </Row>
+            </div>
+            <div>
+              <Button
+                className="m-0"
+                onClick={() => {
+                  const newPaceSeconds = paceSeconds + 5;
+                  setPaceSeconds(
+                    newPaceSeconds > maxSliderValue
+                      ? maxSliderValue
+                      : newPaceSeconds
+                  );
+                }}
+              >
+                &rarr;
+              </Button>
+            </div>
+          </div>
         </Form.Group>
       </Form>
 
