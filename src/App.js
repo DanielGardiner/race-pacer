@@ -3,6 +3,7 @@ import "./styles/bootstrap-custom-colors.scss";
 import Form from "react-bootstrap/Form";
 import RangeSlider from "react-bootstrap-range-slider";
 import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
@@ -25,27 +26,37 @@ function App() {
           {/* <Form.Label className="text-white">Unit</Form.Label> */}
 
           <Form.Label className="text-white mt-5">Pace</Form.Label>
-          <RangeSlider
-            min={
-              paceUnit === units.MILES
-                ? 210
-                : 210 * multipliers.KM_TO_MILES_MULTIPLIER
-            }
-            max={
-              paceUnit === units.MILES
-                ? 900
-                : 900 * multipliers.KM_TO_MILES_MULTIPLIER
-            }
-            tooltipLabel={() => {
-              const paceDisplayString = getPaceDisplayString(paceSeconds);
-              return paceDisplayString;
-            }}
-            tooltip="on"
-            value={paceSeconds}
-            onChange={(e) => {
-              setPaceSeconds(e.target.value);
-            }}
-          />
+          <Row>
+            <Col xs={1}>
+              <Button>&larr;</Button>
+            </Col>
+            <Col>
+              <RangeSlider
+                min={
+                  paceUnit === units.MILES
+                    ? 210
+                    : 210 * multipliers.KM_TO_MILES_MULTIPLIER
+                }
+                max={
+                  paceUnit === units.MILES
+                    ? 900
+                    : 900 * multipliers.KM_TO_MILES_MULTIPLIER
+                }
+                tooltipLabel={() => {
+                  const paceDisplayString = getPaceDisplayString(paceSeconds);
+                  return paceDisplayString;
+                }}
+                tooltip="on"
+                value={paceSeconds}
+                onChange={(e) => {
+                  setPaceSeconds(e.target.value);
+                }}
+              />
+            </Col>
+            <Col xs={1}>
+            <Button>&rarr;</Button>
+            </Col>
+          </Row>
         </Form.Group>
       </Form>
 
