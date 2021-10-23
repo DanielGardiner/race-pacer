@@ -15,13 +15,15 @@ function App() {
 
   return (
     <LayoutMain>
-      <h1 className="text-white pt-5 text-center">Race Pacer!</h1>
+      <h1 className="text-white text-center" style={{ paddingTop: "6.5rem" }}>
+        Race Pacer!
+      </h1>
 
       <Form>
         <Form.Group>
           {/* <Form.Label className="text-white">Unit</Form.Label> */}
 
-          <Form.Label className="text-white">Pace</Form.Label>
+          <Form.Label className="text-white mt-5">Pace</Form.Label>
           <RangeSlider
             min={
               paceUnit === units.MILES
@@ -62,7 +64,7 @@ function App() {
             });
 
             return (
-              <Row className="text-white mt-1 mb-1">
+              <Row className="text-white mt-1 mb-1" key={title}>
                 <Col className="p-0" xs={6} md={3}>
                   {title}
                 </Col>
