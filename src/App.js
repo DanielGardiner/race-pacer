@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles/bootstrap-custom-colors.scss";
 import Form from "react-bootstrap/Form";
 import RangeSlider from "react-bootstrap-range-slider";
@@ -15,14 +15,24 @@ import { units, multipliers, distances } from "./utils/statics";
 import { getPaceDisplayString, getRaceTimeDisplayString } from "./functions";
 import PaceSlider from "./components/PaceSlider";
 
+const DEFAULT_PACE_SECONDS = 600;
+
 function App() {
-  const [paceSeconds, setPaceSeconds] = useState(600);
+  const [paceSeconds, setPaceSeconds] = useState(DEFAULT_PACE_SECONDS);
   const [paceUnit, setPaceUnit] = useState(units.KM);
 
   const unitOptions = [
     { title: "Miles", value: units.MILES },
     { title: "Km", value: units.KM },
   ];
+
+  useEffect(() => {
+    const newPaceSeconds =
+      paceUnit === units.MILES
+        ? 600
+        : DEFAULT_PACE_SECONDS * multipliers.KM_TO_MILES_MULTIPLIER;
+    setPaceSeconds(newPaceSeconds);
+  }, [paceUnit]);
 
   return (
     <LayoutMain>
@@ -55,7 +65,7 @@ function App() {
               </ButtonGroup>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Card.Title className="mb-4 mt-3">Pace</Card.Title>
+              <Card.Title className="mb-4 mt-3">Pace per {paceUnit}</Card.Title>
               <PaceSlider
                 paceSeconds={paceSeconds}
                 paceUnit={paceUnit}

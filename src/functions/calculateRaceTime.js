@@ -22,7 +22,7 @@ function calculateRaceTime({ distance, pace }) {
   const secondsToRunOneMile =
     paceUnit === units.MILES
       ? paceSeconds
-      : paceSeconds * multipliers.KM_TO_MILES_MULTIPLIER;
+      : paceSeconds / multipliers.KM_TO_MILES_MULTIPLIER;
 
   const raceTimeSeconds = secondsToRunOneMile * distanceInMiles;
 
