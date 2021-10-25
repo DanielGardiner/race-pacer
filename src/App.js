@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import "./styles/bootstrap-custom-colors.scss";
 import Form from "react-bootstrap/Form";
 import RangeSlider from "react-bootstrap-range-slider";
@@ -11,7 +11,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import LayoutMain from "./components/layouts/LayoutMain";
-import { units, multipliers, distances } from "./utils/statics";
+import { units, multipliers, distances, sliderValues } from "./utils/statics";
 import { getPaceDisplayString, getRaceTimeDisplayString } from "./functions";
 import PaceSlider from "./components/PaceSlider";
 
@@ -19,7 +19,9 @@ const DEFAULT_PACE_SECONDS = 600;
 
 function App() {
   const [paceSeconds, setPaceSeconds] = useState(DEFAULT_PACE_SECONDS);
-  const [paceUnit, setPaceUnit] = useState(units.KM);
+  const [paceUnit, setPaceUnit] = useState(units.MILES);
+
+  const isFirstRender = useRef(true);
 
   const unitOptions = [
     { title: "Miles", value: units.MILES },
@@ -27,17 +29,25 @@ function App() {
   ];
 
   useEffect(() => {
+    if (isFirstRender.current === true) {
+      isFirstRender.current = false;
+      return;
+    }
     const newPaceSeconds =
       paceUnit === units.MILES
-        ? 600
-        : DEFAULT_PACE_SECONDS * multipliers.KM_TO_MILES_MULTIPLIER;
+        ? paceSeconds / multipliers.KM_TO_MILES_MULTIPLIER
+        : paceSeconds * multipliers.KM_TO_MILES_MULTIPLIER;
+
     setPaceSeconds(newPaceSeconds);
   }, [paceUnit]);
 
   return (
     <LayoutMain>
-      <h1 className="text-white text-center" style={{ paddingTop: "6.5rem" }}>
-        Race Pacer!
+      <h1
+        className="text-center"
+        style={{ paddingTop: "4rem", letterSpacing: "0.1rem" }}
+      >
+        Race Pacer
       </h1>
 
       <Card className="mt-5">
