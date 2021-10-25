@@ -1,9 +1,5 @@
 import { useRef, useEffect, useState } from "react";
 import "./styles/bootstrap-custom-colors.scss";
-import Form from "react-bootstrap/Form";
-import RangeSlider from "react-bootstrap-range-slider";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ListGroup from "react-bootstrap/ListGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
@@ -12,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import LayoutMain from "./components/layouts/LayoutMain";
 import { units, multipliers, distances } from "./utils/statics";
-import { getPaceDisplayString, getRaceTimeDisplayString } from "./functions";
+import { getRaceTimeDisplayString } from "./functions";
 import PaceSlider from "./components/PaceSlider";
 
 const DEFAULT_PACE_SECONDS = 600;
