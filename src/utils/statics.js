@@ -13,9 +13,3 @@ export const distances = [
   { title: "Half marathon", value: 21.0975, unit: units.KM },
   { title: "Marathon", value: 42.195, unit: units.KM },
 ];
-
-export const sliderValues = {
-  MIN: 200,
-  DEFAULT: 600,
-  MAX: 1000,
-}

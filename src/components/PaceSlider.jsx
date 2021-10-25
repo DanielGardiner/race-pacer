@@ -3,15 +3,13 @@ import Button from "react-bootstrap/Button";
 import { units, multipliers } from "../utils/statics";
 import { getPaceDisplayString } from "../functions";
 
-const MIN_PACE_SECONDS = 200;
-const MAX_PACE_SECONDS = 1000;
 
-
-function PaceSlider({ paceSeconds, paceUnit, setPaceSeconds }) {
-  const minSliderValue =
-    paceUnit === units.MILES ? MIN_PACE_SECONDS : MIN_PACE_SECONDS * multipliers.KM_TO_MILES_MULTIPLIER;
-  const maxSliderValue =
-    paceUnit === units.MILES ? MAX_PACE_SECONDS : MAX_PACE_SECONDS * multipliers.KM_TO_MILES_MULTIPLIER;
+function PaceSlider({
+  paceSeconds,
+  minSliderValue,
+  maxSliderValue,
+  setPaceSeconds
+}) {
 
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>

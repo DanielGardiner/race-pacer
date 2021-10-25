@@ -11,15 +11,19 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import LayoutMain from "./components/layouts/LayoutMain";
-import { units, multipliers, distances, sliderValues } from "./utils/statics";
+import { units, multipliers, distances } from "./utils/statics";
 import { getPaceDisplayString, getRaceTimeDisplayString } from "./functions";
 import PaceSlider from "./components/PaceSlider";
 
 const DEFAULT_PACE_SECONDS = 600;
+const MIN_PACE_SECONDS = 200;
+const MAX_PACE_SECONDS = 1000;
 
 function App() {
   const [paceSeconds, setPaceSeconds] = useState(DEFAULT_PACE_SECONDS);
   const [paceUnit, setPaceUnit] = useState(units.MILES);
+  const [minSliderValue, setMinSliderValue] = useState(MIN_PACE_SECONDS);
+  const [maxSliderValue, setMaxSliderValue] = useState(MAX_PACE_SECONDS);
 
   const isFirstRender = useRef(true);
 
@@ -38,7 +42,18 @@ function App() {
         ? paceSeconds / multipliers.KM_TO_MILES_MULTIPLIER
         : paceSeconds * multipliers.KM_TO_MILES_MULTIPLIER;
 
+    const minSliderValue =
+      paceUnit === units.MILES
+        ? MIN_PACE_SECONDS
+        : MIN_PACE_SECONDS * multipliers.KM_TO_MILES_MULTIPLIER;
+    const maxSliderValue =
+      paceUnit === units.MILES
+        ? MAX_PACE_SECONDS
+        : MAX_PACE_SECONDS * multipliers.KM_TO_MILES_MULTIPLIER;
+
     setPaceSeconds(newPaceSeconds);
+    setMinSliderValue(minSliderValue);
+    setMaxSliderValue(maxSliderValue);
   }, [paceUnit]);
 
   return (
@@ -80,6 +95,8 @@ function App() {
                 paceSeconds={paceSeconds}
                 paceUnit={paceUnit}
                 setPaceSeconds={setPaceSeconds}
+                minSliderValue={minSliderValue}
+                maxSliderValue={maxSliderValue}
               />
             </ListGroup.Item>
           </ListGroup>
