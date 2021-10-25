@@ -10,6 +10,7 @@ import LayoutMain from "./components/layouts/LayoutMain";
 import { units, multipliers, distances } from "./utils/statics";
 import { getRaceTimeDisplayString } from "./functions";
 import PaceSlider from "./components/PaceSlider";
+import PaceUnitSelector from "./components/PaceUnitSelector";
 
 const DEFAULT_PACE_SECONDS = 600;
 const MIN_PACE_SECONDS = 200;
@@ -22,11 +23,6 @@ function App() {
   const [maxSliderValue, setMaxSliderValue] = useState(MAX_PACE_SECONDS);
 
   const isFirstRender = useRef(true);
-
-  const unitOptions = [
-    { title: "Miles", value: units.MILES },
-    { title: "Km", value: units.KM },
-  ];
 
   useEffect(() => {
     if (isFirstRender.current === true) {
@@ -60,7 +56,6 @@ function App() {
       >
         Race Pacer
       </h1>
-
       <Card className="mt-5">
         <Card.Header style={{ fontSize: "1.3rem", fontWeight: 400 }}>
           Options:
@@ -69,21 +64,7 @@ function App() {
           <ListGroup variant="flush">
             <ListGroup.Item className="pb-4">
               <Card.Title className="mb-4">Unit</Card.Title>
-              <ButtonGroup className="mb-2">
-                {unitOptions.map(({ title, value }) => (
-                  <ToggleButton
-                    key={value}
-                    type="radio"
-                    variant="outline-primary"
-                    value={value}
-                    checked={value === paceUnit}
-                    onClick={(e) => setPaceUnit(value)}
-                    style={{ minWidth: 70 }}
-                  >
-                    {title}
-                  </ToggleButton>
-                ))}
-              </ButtonGroup>
+              <PaceUnitSelector paceUnit={paceUnit} setPaceUnit={setPaceUnit} />
             </ListGroup.Item>
             <ListGroup.Item>
               <Card.Title className="mb-4 mt-3">Pace per {paceUnit}</Card.Title>
