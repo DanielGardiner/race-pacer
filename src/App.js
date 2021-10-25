@@ -51,13 +51,9 @@ function App() {
 
   return (
     <LayoutMain>
-      <h1
-        className="text-center"
-        style={{ paddingTop: "4rem", letterSpacing: "0.1rem" }}
-      >
-        Race Pacer
-      </h1>
-      <Card className="mt-5">
+
+  
+      <Card>
         <Card.Header style={{ fontSize: "1.3rem", fontWeight: 400 }}>
           Options:
         </Card.Header>
@@ -68,7 +64,9 @@ function App() {
               <PaceUnitSelector paceUnit={paceUnit} setPaceUnit={setPaceUnit} />
             </ListGroup.Item>
             <ListGroup.Item>
-              <Card.Title className="mb-4 mt-3">2. Select your pace per {paceUnit}</Card.Title>
+              <Card.Title className="mb-4 mt-3">
+                2. Select your pace per {paceUnit}
+              </Card.Title>
               <PaceSlider
                 paceSeconds={paceSeconds}
                 paceUnit={paceUnit}
