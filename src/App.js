@@ -64,11 +64,11 @@ function App() {
         <Card.Body className="mt-2 mb-4">
           <ListGroup variant="flush">
             <ListGroup.Item className="pb-4">
-              <Card.Title className="mb-4">Unit</Card.Title>
+              <Card.Title className="mb-4">1. Select your unit</Card.Title>
               <PaceUnitSelector paceUnit={paceUnit} setPaceUnit={setPaceUnit} />
             </ListGroup.Item>
             <ListGroup.Item>
-              <Card.Title className="mb-4 mt-3">Pace per {paceUnit}</Card.Title>
+              <Card.Title className="mb-4 mt-3">2. Select your pace per {paceUnit}</Card.Title>
               <PaceSlider
                 paceSeconds={paceSeconds}
                 paceUnit={paceUnit}
