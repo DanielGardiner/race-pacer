@@ -1,6 +1,6 @@
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
-import { units } from "../utils/statics";
+import { units } from "../../utils/statics";
 
 function PaceUnitSelector({ paceUnit, setPaceUnit }) {
   const unitOptions = [

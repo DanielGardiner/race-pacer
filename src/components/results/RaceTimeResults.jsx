@@ -1,7 +1,7 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { distances } from "../utils/statics";
-import { getRaceTimeDisplayString } from "../functions";
+import { distances } from "../../utils/statics";
+import { getRaceTimeDisplayString } from "../../functions";
 
 function RaceTimeResults({ paceSeconds, paceUnit }) {
   return (
