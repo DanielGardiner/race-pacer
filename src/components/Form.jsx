@@ -1,8 +1,9 @@
-import { useRef, useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from 'framer-motion'
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import { units, multipliers } from "../utils/statics";
+import { useUpdateEffect } from "../hooks";
 
 import PaceSlider from "./inputs/PaceSlider";
 import PaceUnitSelector from "./inputs/PaceUnitSelector";
@@ -18,31 +19,32 @@ function Form() {
   const [minSliderValue, setMinSliderValue] = useState(MIN_PACE_SECONDS);
   const [maxSliderValue, setMaxSliderValue] = useState(MAX_PACE_SECONDS);
 
-  const isFirstRender = useRef(true);
+  useUpdateEffect(() => {
 
-  useEffect(() => {
-    if (isFirstRender.current === true) {
-      isFirstRender.current = false;
-      return;
-    }
-    const newPaceSeconds =
-      paceUnit === units.MILES
-        ? paceSeconds / multipliers.KM_TO_MILES_MULTIPLIER
-        : paceSeconds * multipliers.KM_TO_MILES_MULTIPLIER;
 
-    const minSliderValue =
+    setPaceSeconds((currentValue) => {
+      const newPaceSeconds =
+        paceUnit === units.MILES
+          ? currentValue / multipliers.KM_TO_MILES_MULTIPLIER
+          : currentValue * multipliers.KM_TO_MILES_MULTIPLIER;
+      return newPaceSeconds
+    });
+
+    const newMinSliderValue =
       paceUnit === units.MILES
         ? MIN_PACE_SECONDS
         : MIN_PACE_SECONDS * multipliers.KM_TO_MILES_MULTIPLIER;
-    const maxSliderValue =
+
+    const newMaxSliderValue =
       paceUnit === units.MILES
         ? MAX_PACE_SECONDS
         : MAX_PACE_SECONDS * multipliers.KM_TO_MILES_MULTIPLIER;
 
-    setPaceSeconds(newPaceSeconds);
-    setMinSliderValue(minSliderValue);
-    setMaxSliderValue(maxSliderValue);
-  }, [paceUnit]);
+    setMinSliderValue(newMinSliderValue)
+
+    setMaxSliderValue(newMaxSliderValue);
+
+  }, [paceUnit])
 
   const formVariants = {
     initial: {
