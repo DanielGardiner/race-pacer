@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from "react";
+import { motion } from 'framer-motion'
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import { units, multipliers } from "../utils/statics";
@@ -12,7 +13,6 @@ const MIN_PACE_SECONDS = 200;
 const MAX_PACE_SECONDS = 1000;
 
 function Form() {
-
   const [paceSeconds, setPaceSeconds] = useState(DEFAULT_PACE_SECONDS);
   const [paceUnit, setPaceUnit] = useState(units.MILES);
   const [minSliderValue, setMinSliderValue] = useState(MIN_PACE_SECONDS);
@@ -44,40 +44,61 @@ function Form() {
     setMaxSliderValue(maxSliderValue);
   }, [paceUnit]);
 
+  const formVariants = {
+    initial: {
+      opacity: 0,
+      y: 150,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+        delay: 0.2,
+      }
+    },
+  }
+
 
   return (
-    <Card>
-      <Card.Header style={{ fontSize: "1.3rem", fontWeight: 400 }}>
-        Options:
-    </Card.Header>
-      <Card.Body className="mt-2 mb-4">
-        <ListGroup variant="flush">
-          <ListGroup.Item className="pb-4">
-            <Card.Title className="mb-4">1. Select your unit</Card.Title>
-            <PaceUnitSelector paceUnit={paceUnit} setPaceUnit={setPaceUnit} />
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <Card.Title className="mb-4 mt-3">
-              2. Select your pace per {paceUnit}
-            </Card.Title>
-            <PaceSlider
-              paceSeconds={paceSeconds}
-              paceUnit={paceUnit}
-              setPaceSeconds={setPaceSeconds}
-              minSliderValue={minSliderValue}
-              maxSliderValue={maxSliderValue}
-            />
-          </ListGroup.Item>
-        </ListGroup>
-      </Card.Body>
+    <motion.div
+      variants={formVariants}
+      initial='initial'
+      animate='animate'
+    >
+      <Card>
+        <Card.Header style={{ fontSize: "1.3rem", fontWeight: 400 }}>
+          Options:
+      </Card.Header>
+        <Card.Body className="mt-2 mb-4">
+          <ListGroup variant="flush">
+            <ListGroup.Item className="pb-4">
+              <Card.Title className="mb-4">1. Select your unit</Card.Title>
+              <PaceUnitSelector paceUnit={paceUnit} setPaceUnit={setPaceUnit} />
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Card.Title className="mb-4 mt-3">
+                2. Select your pace per {paceUnit}
+              </Card.Title>
+              <PaceSlider
+                paceSeconds={paceSeconds}
+                paceUnit={paceUnit}
+                setPaceSeconds={setPaceSeconds}
+                minSliderValue={minSliderValue}
+                maxSliderValue={maxSliderValue}
+              />
+            </ListGroup.Item>
+          </ListGroup>
+        </Card.Body>
 
-      <Card.Header style={{ fontSize: "1.3rem", fontWeight: 400 }}>
-        Race Time:
+        <Card.Header style={{ fontSize: "1.3rem", fontWeight: 400 }}>
+          Race Time:
     </Card.Header>
-      <Card.Body className="pt-1">
-        <RaceTimeResults paceSeconds={paceSeconds} paceUnit={paceUnit} />
-      </Card.Body>
-    </Card>
+        <Card.Body className="pt-1">
+          <RaceTimeResults paceSeconds={paceSeconds} paceUnit={paceUnit} />
+        </Card.Body>
+      </Card>
+    </motion.div>
   )
 }
 
