@@ -95,7 +95,7 @@ function Form() {
 
         <Card.Header style={{ fontSize: "1.3rem", fontWeight: 400 }}>
           Race Time:
-    </Card.Header>
+        </Card.Header>
         <Card.Body className="pt-1">
           <RaceTimeResults paceSeconds={paceSeconds} paceUnit={paceUnit} />
         </Card.Body>
