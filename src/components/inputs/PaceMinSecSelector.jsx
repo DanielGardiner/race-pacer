@@ -24,17 +24,17 @@ function PaceSlider({
 
   useOnClickOutside(minRef, () => {
     if (!inputMins || inputMins < minMinuteInput || inputMins > maxMinuteInput) {
-      setInputMinds(mins)
+      setInputMins(mins)
     }
   })
 
 
 
-  const [inputMins, setInputMinds] = useState(mins)
+  const [inputMins, setInputMins] = useState(mins)
 
   useEffect(() => {
-    setInputMinds(mins)
-  }, [paceSeconds, setInputMinds, mins])
+    setInputMins(mins)
+  }, [paceSeconds, setInputMins, mins])
 
 
   return (
@@ -52,7 +52,7 @@ function PaceSlider({
             onChange={(e) => {
               const value = e.target.value
               if (!value || value < minMinuteInput || value > maxMinuteInput) {
-                setInputMinds(value)
+                setInputMins(value)
               } else {
                 const paceSecondsNumber = parseInt(value, 10) * 60 + seconds
                 setPaceSeconds(paceSecondsNumber)
