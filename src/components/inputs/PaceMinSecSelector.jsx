@@ -17,7 +17,10 @@ function PaceSlider({
 }) {
   const { mins: minMinuteInput } = convertSecondsToHMS(minSliderValue)
   const { mins: maxMinuteInput } = convertSecondsToHMS(maxSliderValue)
+  const minSecondsInput = 0
+  const maxSecondsInput = 59
   const { mins, seconds } = convertSecondsToHMS(paceSeconds)
+
 
   const minRef = useRef();
   const secRef = useRef();
@@ -70,8 +73,8 @@ function PaceSlider({
               const paceSecondsNumber = mins * 60 + parseInt(e.target.value, 10)
               setPaceSeconds(paceSecondsNumber)
             }}
-            min={0}
-            max={59}
+            min={minSecondsInput}
+            max={maxSecondsInput}
           />
         </Col>
       </Row>
