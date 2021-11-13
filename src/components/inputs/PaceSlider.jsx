@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import RangeSlider from "react-bootstrap-range-slider";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -17,6 +18,20 @@ function PaceSlider({
   const { mins: maxMinuteInput } = convertSecondsToHMS(maxSliderValue)
   const { mins, seconds } = convertSecondsToHMS(paceSeconds)
 
+  const [inputMins, setInputMinds] = useState(mins)
+
+  useEffect(() => {
+    setInputMinds(mins)
+  }, [paceSeconds, setInputMinds, mins])
+
+  function handleInputChange(newValue, inValidValueCallback, validValueCallback) {
+    if (!newValue || newValue < minMinuteInput || newValue > maxMinuteInput) {
+      inValidValueCallback()
+    } else {
+      validValueCallback()
+    }
+  }
+
   return (
     <>
       <Row
@@ -27,10 +42,15 @@ function PaceSlider({
           Mins
           <Form.Control
             type="number"
-            value={mins}
+            value={inputMins}
             onChange={(e) => {
-              const paceSecondsNumber = parseInt(e.target.value, 10) * 60 + seconds
-              setPaceSeconds(paceSecondsNumber)
+              const value = e.target.value
+              if (!value || value < minMinuteInput || value > maxMinuteInput) {
+                setInputMinds(value)
+              } else {
+                const paceSecondsNumber = parseInt(value, 10) * 60 + seconds
+                setPaceSeconds(paceSecondsNumber)
+              }
             }}
             min={minMinuteInput}
             max={maxMinuteInput}
