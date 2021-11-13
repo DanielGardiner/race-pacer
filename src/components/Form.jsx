@@ -5,6 +5,7 @@ import Card from "react-bootstrap/Card";
 import { units, multipliers } from "../utils/statics";
 import { useUpdateEffect } from "../hooks";
 
+import PaceMinSecSelector from "./inputs/PaceMinSecSelector";
 import PaceSlider from "./inputs/PaceSlider";
 import PaceUnitSelector from "./inputs/PaceUnitSelector";
 import RaceTimeResults from "./results/RaceTimeResults";
@@ -82,9 +83,14 @@ function Form() {
               <Card.Title className="mb-4 mt-3">
                 2. Select your pace per {paceUnit}
               </Card.Title>
+              <PaceMinSecSelector
+                paceSeconds={paceSeconds}
+                setPaceSeconds={setPaceSeconds}
+                minSliderValue={minSliderValue}
+                maxSliderValue={maxSliderValue}
+              />
               <PaceSlider
                 paceSeconds={paceSeconds}
-                paceUnit={paceUnit}
                 setPaceSeconds={setPaceSeconds}
                 minSliderValue={minSliderValue}
                 maxSliderValue={maxSliderValue}
