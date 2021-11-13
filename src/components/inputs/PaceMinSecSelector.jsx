@@ -1,13 +1,12 @@
-import { useEffect, useState, useRef } from "react";
-import RangeSlider from "react-bootstrap-range-slider";
-import Button from "react-bootstrap/Button";
-import { useOnClickOutside } from "../../hooks";
+import { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import { convertSecondsToHMS } from "../../functions";
 
-
+function getIsMinsValid(mins, minMins, maxMins) {
+  return !!mins && mins >= minMins && mins <= maxMins
+}
 
 function PaceSlider({
   paceSeconds,
@@ -22,22 +21,18 @@ function PaceSlider({
   const { mins, seconds } = convertSecondsToHMS(paceSeconds)
 
 
-  const minRef = useRef();
-  const secRef = useRef();
-
-  useOnClickOutside(minRef, () => {
-    if (!inputMins || inputMins < minMinuteInput || inputMins > maxMinuteInput) {
-      setInputMins(mins)
-    }
-  })
-
-
 
   const [inputMins, setInputMins] = useState(mins)
 
+
+  const isMinsValid = getIsMinsValid(inputMins, minMinuteInput, maxMinuteInput)
+
   useEffect(() => {
-    setInputMins(mins)
-  }, [paceSeconds, setInputMins, mins])
+    if (isMinsValid) {
+      const paceSecondsNumber = inputMins * 60 + seconds
+      setPaceSeconds(paceSecondsNumber)
+    }
+  }, [inputMins, isMinsValid, setPaceSeconds, seconds])
 
 
   return (
@@ -49,16 +44,16 @@ function PaceSlider({
         <Col xs={6} sm={3} md={2} className="pr-0">
           Mins
           <Form.Control
-            ref={minRef}
             type="number"
             value={inputMins}
             onChange={(e) => {
-              const value = e.target.value
-              if (!value || value < minMinuteInput || value > maxMinuteInput) {
-                setInputMins(value)
-              } else {
-                const paceSecondsNumber = parseInt(value, 10) * 60 + seconds
-                setPaceSeconds(paceSecondsNumber)
+              const value = e.target.value || 0
+              const valueInt = parseInt(value, 10)
+              setInputMins(valueInt)
+            }}
+            onBlur={() => {
+              if (!isMinsValid) {
+                setInputMins(mins)
               }
             }}
             min={minMinuteInput}
