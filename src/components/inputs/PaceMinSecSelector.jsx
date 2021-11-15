@@ -26,6 +26,8 @@ function PaceSlider({
   const isMinsValid = getIsInputValid(inputMins, minMinuteInput, maxMinuteInput)
   const isSecondsValid = getIsInputValid(inputSeconds, minSecondsInput, maxSecondsInput)
 
+  const [isSecondsErrored, setIsSecondsErrored] = useState(false)
+
   useEffect(() => {
     setInputMins(mins)
   }, [mins])
@@ -73,16 +75,21 @@ function PaceSlider({
               setInputSeconds(newInputSeconds)
 
               const isValueValid = getIsInputValid(newInputSeconds, minSecondsInput, maxSecondsInput)
-              if (isValueValid) {
-                const paceSecondsNumber = mins * 60 + newInputSeconds
-                setPaceSeconds(paceSecondsNumber)
+              if (!isValueValid) {
+                setIsSecondsErrored(true)
+                return
               }
+              setIsSecondsErrored(false)
+              const paceSecondsNumber = mins * 60 + newInputSeconds
+              setPaceSeconds(paceSecondsNumber)
             }}
             onBlur={() => {
+              setIsSecondsErrored(false)
               if (!isSecondsValid) {
                 setInputSeconds(seconds)
               }
             }}
+            style={{ border: isSecondsErrored && '1px solid red' }}
             min={minSecondsInput}
             max={maxSecondsInput}
           />
