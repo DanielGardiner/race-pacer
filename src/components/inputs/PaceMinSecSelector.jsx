@@ -4,8 +4,9 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import { convertSecondsToHMS } from "../../functions";
 
-function getIsInputValid(inputValue, minInputValue, maxInputValue) {
-  return !!inputValue && inputValue >= minInputValue && inputValue <= maxInputValue
+function validateInput(inputValue, minInputValue, maxInputValue) {
+  if (!!inputValue && inputValue >= minInputValue && inputValue <= maxInputValue) return true
+  throw new Error('Validation error')
 }
 
 function PaceSlider({
@@ -23,9 +24,7 @@ function PaceSlider({
   const [inputMins, setInputMins] = useState(mins)
   const [inputSeconds, setInputSeconds] = useState(seconds)
 
-  const isMinsValid = getIsInputValid(inputMins, minMinuteInput, maxMinuteInput)
-  const isSecondsValid = getIsInputValid(inputSeconds, minSecondsInput, maxSecondsInput)
-
+  const [isMinsErrored, setIsMinsErrored] = useState(false)
   const [isSecondsErrored, setIsSecondsErrored] = useState(false)
 
   useEffect(() => {
@@ -48,20 +47,28 @@ function PaceSlider({
             type="number"
             value={inputMins}
             onChange={(e) => {
-              const newInputMins = parseInt(e.target.value, 10)
-              setInputMins(newInputMins)
+              try {
+                const newInputMins = parseInt(e.target.value, 10)
+                setInputMins(newInputMins)
 
-              const isValueValid = getIsInputValid(newInputMins, minMinuteInput, maxMinuteInput)
-              if (isValueValid) {
+                validateInput(newInputMins, minMinuteInput, maxMinuteInput)
+
+                setIsMinsErrored(false)
                 const paceSecondsNumber = newInputMins * 60 + seconds
                 setPaceSeconds(paceSecondsNumber)
+              } catch (e) {
+                setIsMinsErrored(true)
               }
             }}
             onBlur={() => {
-              if (!isMinsValid) {
+              try {
+                setIsMinsErrored(false)
+                validateInput(inputMins, minMinuteInput, maxMinuteInput)
+              } catch (e) {
                 setInputMins(mins)
               }
             }}
+            style={{ borderColor: isMinsErrored && 'red', color: isMinsErrored && 'red' }}
             min={minMinuteInput}
             max={maxMinuteInput}
           />
@@ -71,25 +78,29 @@ function PaceSlider({
           <Form.Control type="number"
             value={inputSeconds}
             onChange={(e) => {
-              const newInputSeconds = parseInt(e.target.value, 10)
-              setInputSeconds(newInputSeconds)
+              try {
+                const newInputSeconds = parseInt(e.target.value, 10)
+                setInputSeconds(newInputSeconds)
 
-              const isValueValid = getIsInputValid(newInputSeconds, minSecondsInput, maxSecondsInput)
-              if (!isValueValid) {
+                validateInput(newInputSeconds, minSecondsInput, maxSecondsInput)
+
+                setIsSecondsErrored(false)
+                const paceSecondsNumber = mins * 60 + newInputSeconds
+                setPaceSeconds(paceSecondsNumber)
+
+              } catch (e) {
                 setIsSecondsErrored(true)
-                return
               }
-              setIsSecondsErrored(false)
-              const paceSecondsNumber = mins * 60 + newInputSeconds
-              setPaceSeconds(paceSecondsNumber)
             }}
             onBlur={() => {
-              setIsSecondsErrored(false)
-              if (!isSecondsValid) {
+              try {
+                setIsSecondsErrored(false)
+                validateInput(inputSeconds, minSecondsInput, maxSecondsInput)
+              } catch (e) {
                 setInputSeconds(seconds)
               }
             }}
-            style={{ border: isSecondsErrored && '1px solid red' }}
+            style={{ borderColor: isSecondsErrored && 'red', color: isSecondsErrored && 'red' }}
             min={minSecondsInput}
             max={maxSecondsInput}
           />
