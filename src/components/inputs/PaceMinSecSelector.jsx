@@ -74,8 +74,7 @@ function PaceSlider({
 
               const isValueValid = getIsInputValid(newInputSeconds, minSecondsInput, maxSecondsInput)
               if (isValueValid) {
-                // const paceSecondsNumber = newInputSeconds * 60 + seconds
-                const paceSecondsNumber = newInputSeconds * 60 + seconds
+                const paceSecondsNumber = mins * 60 + newInputSeconds
                 setPaceSeconds(paceSecondsNumber)
               }
             }}
